@@ -149,5 +149,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 286a7f033a6167840bef0be2e1b4d320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineRenderer: {fileID: 0}
-  fadeSpeed: 2
+  lineRenderer: {fileID: 6583561833334725396}
+  fadeSpeed: 10

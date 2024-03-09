@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6944553944546134986}
   - component: {fileID: 2591124030144789617}
-  m_Layer: 0
+  - component: {fileID: 6044831957107949113}
+  - component: {fileID: 5430267893810105219}
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,6 +50,48 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 5
   stopChaseDistance: 2
+--- !u!114 &6044831957107949113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2353185603250621751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8b32f4d71fcc40479cfb488f6c602bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnReceive:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5430267893810105219}
+        m_TargetAssemblyTypeName: HealthPoint, Assembly-CSharp
+        m_MethodName: Decrease
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5430267893810105219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2353185603250621751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a9786778216a846a78bad858ca3eae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxPoint: 100
+  deadEffect: {fileID: 7020169366482645267, guid: 97250bce79c93dc469ed2821eca6003e,
+    type: 3}
 --- !u!1 &3274808640047344951
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,7 +104,7 @@ GameObject:
   - component: {fileID: 4400911402662522970}
   - component: {fileID: 2301876339125060659}
   - component: {fileID: 195504823326874165}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
