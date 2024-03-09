@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace c3m.Sample
 {
@@ -16,6 +17,8 @@ namespace c3m.Sample
         private float moveSpeed = 5f; // 追逐者的移動速度
         [SerializeField]
         private float stopChaseDistance = 2f; // 停止追逐的距離
+
+        public UnityEvent OnArrived; // 抵達目標時觸發的事件
 
         /// <summary>
         /// 設定要追逐的目標
@@ -58,6 +61,13 @@ namespace c3m.Sample
                 IsChasing = false;
 
                 IsArrived = true;
+
+                // 觸發抵達事件
+                var chaseTarget = target.GetComponent<ChaserTarget>();
+                if (chaseTarget != null)
+                {
+                    chaseTarget.OnArrived?.Invoke();
+                }
             }
             else
             {
