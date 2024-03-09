@@ -176,8 +176,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2676793395927275824}
   - component: {fileID: 1864462080259225795}
-  - component: {fileID: 2677637995817853927}
   - component: {fileID: 8054116507807271441}
+  - component: {fileID: 3040668286254475513}
+  - component: {fileID: 4020864264166494932}
+  - component: {fileID: 6307140381281310274}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -213,21 +215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f02ff016b2db8594eb6779d8f9235122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputsystem: {fileID: 3040668286254475513}
   source: {fileID: 2676793395927275824}
-  speed: 5
---- !u!114 &2677637995817853927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2226497906926519737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 494c7d165fd12c14689d81478fe58cf2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  source: {fileID: 5145698832581524376}
   speed: 5
 --- !u!114 &8054116507807271441
 MonoBehaviour:
@@ -241,6 +230,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70857b728cbe39a49973345f9f2410b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3040668286254475513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2226497906926519737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0456d38b1c08843ab901ba2b499305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joystick: {fileID: 0}
+--- !u!114 &4020864264166494932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2226497906926519737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63206bdf004407f4d82717c58198e0b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 5145698832581524376}
+  inputsystem: {fileID: 6307140381281310274}
+--- !u!114 &6307140381281310274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2226497906926519737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0456d38b1c08843ab901ba2b499305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joystick: {fileID: 0}
 --- !u!1 &7202147418648926049
 GameObject:
   m_ObjectHideFlags: 0
