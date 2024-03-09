@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    public Joystick joystick;
     public Transform source;
     public float speed = 5f;
 
@@ -19,9 +20,8 @@ public class Movement : MonoBehaviour
         if(source == null)
             return;
 
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        Debug.Log("Horizontal: " + horizontal + " Vertical: " + vertical);
+        float horizontal = joystick.Horizontal;
+        float vertical = joystick.Vertical;
 
         Vector3 movement = new Vector3(horizontal, 0f, vertical) * speed * Time.deltaTime;
 
