@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Laser
 {
@@ -44,6 +45,10 @@ public class LaserShooter : WeaponShooter
 {
     public float laserSpeed = 100f;
     public float laserLifeTime = 2f;
+    public LayerMask shootLayer;
+
+    [Header("擊中事件")]
+    public UnityEvent<GameObject> OnHit;
 
     private List<GameObject> lasers = new List<GameObject>();
 
@@ -58,23 +63,27 @@ public class LaserShooter : WeaponShooter
         if (weapon.shootPoint == null)
             return;
 
+        // 產生雷射物件
         GameObject laserObj = Instantiate(prefab, weapon.shootPoint.position, Quaternion.identity);
 
         RaycastHit hit;
-        if (Physics.Raycast(weapon.shootPoint.position, weapon.shootPoint.forward, out hit))
+        var laserRay = new Ray(weapon.shootPoint.position, weapon.shootPoint.forward);
+        if (Physics.Raycast(laserRay, out hit, Mathf.Infinity, shootLayer))
         {
             Vector3 direction = hit.point - weapon.shootPoint.position;
             laserObj.transform.forward = direction.normalized;
+            OnHit?.Invoke(hit.collider.gameObject);
         }
         else
         {
             laserObj.transform.forward = weapon.shootPoint.forward;
         }
 
-        // get the line renderer component
+        // 取得LineRenderer
         LineRenderer lineRenderer = laserObj.GetComponent<LineRenderer>();
         if (lineRenderer != null)
         {
+            // 設定LineRenderer的起點與終點
             lineRenderer.SetPosition(0, Vector3.zero);
             lineRenderer.SetPosition(1, Vector3.forward * 100);
         }
@@ -89,28 +98,7 @@ public class LaserShooter : WeaponShooter
         if (lasers.Count == 0)
             return;
 
+        // 移除已經被銷毀的laser
         lasers.RemoveAll(laser => laser == null);
-
-        foreach (GameObject laser in lasers)
-        {
-            var lineRenderer = laser.GetComponent<LineRenderer>();
-            if (lineRenderer != null)
-            {
-                // fade out the laser
-                Color startColor = lineRenderer.startColor;
-                Color endColor = lineRenderer.endColor;
-                startColor.a -= Time.deltaTime * 10;
-                endColor.a -= Time.deltaTime * 10;
-                lineRenderer.startColor = startColor;
-                lineRenderer.endColor = endColor;
-                lineRenderer.startWidth = Mathf.Lerp(0.1f, 0f, Time.deltaTime * 10);
-                lineRenderer.startWidth = Mathf.Max(0, lineRenderer.startWidth);
-                lineRenderer.endWidth = Mathf.Lerp(0.1f, 0f, Time.deltaTime * 10);
-                lineRenderer.endWidth = Mathf.Max(0, lineRenderer.endWidth);
-
-
-
-            }
-        }
     }
 }

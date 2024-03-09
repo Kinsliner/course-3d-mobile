@@ -21,6 +21,18 @@ public class LaserEffect : MonoBehaviour
             return;
         }
 
-        
+        // 淡出LineRenderer的顏色
+        Color startColor = lineRenderer.startColor;
+        Color endColor = lineRenderer.endColor;
+        startColor.a -= Time.deltaTime * fadeSpeed;
+        endColor.a -= Time.deltaTime * fadeSpeed;
+        lineRenderer.startColor = startColor;
+        lineRenderer.endColor = endColor;
+
+        // 淡出LineRenderer的寬度
+        lineRenderer.startWidth = Mathf.Lerp(0.1f, 0f, Time.deltaTime * fadeSpeed);
+        lineRenderer.startWidth = Mathf.Max(0, lineRenderer.startWidth);
+        lineRenderer.endWidth = Mathf.Lerp(0.1f, 0f, Time.deltaTime * fadeSpeed);
+        lineRenderer.endWidth = Mathf.Max(0, lineRenderer.endWidth);
     }
 }
