@@ -46,6 +46,12 @@ namespace c3m.Sample
                 return;
             }
 
+            // 如果沒有玩家物件，則不執行
+            if (player == null)
+            {
+                return;
+            }
+
             // 更新計時器
             currentSpawnTime += Time.deltaTime;
             if (currentSpawnTime >= spawnInterval)
