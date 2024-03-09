@@ -2,55 +2,14 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Laser
-{
-    public GameObject GameObject { get; set; }
-    public Vector3 Direction { get; set; }
-    public float Speed { get; set; }
-
-    private Vector3 startPoint;
-    private LineRenderer lineRenderer;
-
-    public Laser(GameObject gameObject, Vector3 direction, float speed)
-    {
-        GameObject = gameObject;
-        Direction = direction;
-        Speed = speed;
-        startPoint = GameObject.transform.position;
-        lineRenderer = GameObject.GetComponent<LineRenderer>();
-    }
-
-    public void Move()
-    {
-        // lincast from laser position to forward
-        RaycastHit hit;
-        Vector3 start = GameObject.transform.position;
-        Vector3 end = start + Direction * Speed * Time.deltaTime;
-        if (Physics.Linecast(start, end, out hit))
-        {
-            // if hit, destroy the laser
-            Object.Destroy(GameObject);
-        }
-        else
-        {
-            // if not hit, move the laser
-            GameObject.transform.position = end;
-            lineRenderer.SetPosition(0, end);
-            lineRenderer.SetPosition(1, startPoint);
-        }
-    }
-}
-
 public class LaserShooter : WeaponShooter
 {
-    public float laserSpeed = 100f;
-    public float laserLifeTime = 2f;
-    public LayerMask shootLayer;
+    public LayerMask shootLayer; // 射線擊中的Layer
 
     [Header("擊中事件")]
     public UnityEvent<GameObject> OnHit;
 
-    private List<GameObject> lasers = new List<GameObject>();
+    private List<GameObject> lasers = new List<GameObject>(); // 保存所有的雷射物件
 
     public override void Shoot(GameObject prefab)
     {
@@ -66,17 +25,17 @@ public class LaserShooter : WeaponShooter
         // 產生雷射物件
         GameObject laserObj = Instantiate(prefab, weapon.shootPoint.position, Quaternion.identity);
 
-        RaycastHit hit;
+        // 設定雷射物件的方向為武器的shootPoint的forward
+        laserObj.transform.forward = weapon.shootPoint.forward;
+
+        // 建立射線，出發點為武器的shootPoint，方向為shootPoint的forward
         var laserRay = new Ray(weapon.shootPoint.position, weapon.shootPoint.forward);
-        if (Physics.Raycast(laserRay, out hit, Mathf.Infinity, shootLayer))
+
+        // 判定射線是否有擊中物件，
+        if (Physics.Raycast(laserRay, out RaycastHit hit, Mathf.Infinity, shootLayer))
         {
-            Vector3 direction = hit.point - weapon.shootPoint.position;
-            laserObj.transform.forward = direction.normalized;
+            // 觸發擊中事件
             OnHit?.Invoke(hit.collider.gameObject);
-        }
-        else
-        {
-            laserObj.transform.forward = weapon.shootPoint.forward;
         }
 
         // 取得LineRenderer
@@ -88,8 +47,10 @@ public class LaserShooter : WeaponShooter
             lineRenderer.SetPosition(1, Vector3.forward * 100);
         }
 
+        // 保存雷射物件
         lasers.Add(laserObj);
 
+        // 2秒後銷毀雷射物件
         Destroy(laserObj, 2f);
     }
 
